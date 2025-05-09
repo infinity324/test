@@ -30,6 +30,7 @@ jobs:
 
       - name: Build wheel package
         run: |
+          Remove-Item -Recurse -Force dist -ErrorAction SilentlyContinue
           python -m build --wheel
           mkdir -p dist
           move dist\*.whl dist\application.whl
