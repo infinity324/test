@@ -30,9 +30,8 @@ jobs:
 
       - name: Build wheel package
         run: |
-          Remove-Item -Recurse -Force dist -ErrorAction SilentlyContinue
           python -m build --wheel
-          mkdir -p dist
+          mkdir -p dist -ErrorAction SilentlyContinue
           move dist\*.whl dist\application.whl
 
       - name: Upload artifact
