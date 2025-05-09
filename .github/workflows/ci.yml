@@ -33,7 +33,7 @@ jobs:
           zip -r dist/application.zip . -x "*.git*" -x "*.github*" -x "*.idea*" -x "*.vscode*" -x "*.env*" -x "*.log*"
 
       - name: Upload artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: application
           path: dist/application.zip
