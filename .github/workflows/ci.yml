@@ -12,7 +12,7 @@ on:
 
 jobs:
   package:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -32,10 +32,10 @@ jobs:
         run: |
           python -m build --wheel
           mkdir -p dist
-          mv dist/*.whl dist/application.whl
+          move dist\*.whl dist\application.whl
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: application
-          path: dist/application.whl
+          path: dist\application.whl
