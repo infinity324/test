@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, flash
 from flask_sqlalchemy import SQLAlchemy
+import logging
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'
@@ -7,6 +8,10 @@ app.secret_key = 'your_secret_key'
 # 配置数据库
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:123456@localhost/test'
 db = SQLAlchemy(app)
+
+# 配置日志
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 # 定义用户模型
 
@@ -39,9 +44,11 @@ def login():
         user = User.query.filter_by(username=username).first()
         if user and user.password == password:
             flash('登录成功！', 'success')
+            logger.info(f"用户 {username} 登录成功")
             return redirect(url_for('home'))
         else:
             flash('登录失败，请检查用户名和密码。', 'danger')
+            logger.warning(f"用户 {username} 登录失败")
     return render_template('login.html')
 
 # 注册界面
@@ -55,13 +62,24 @@ def register():
         existing_user = User.query.filter_by(username=username).first()
         if existing_user:
             flash('用户名已存在，请选择其他用户名。', 'danger')
+            logger.warning(f"用户名 {username} 已存在")
         else:
             new_user = User(username=username, password=password)
             db.session.add(new_user)
             db.session.commit()
             flash('注册成功！', 'success')
+            logger.info(f"用户 {username} 注册成功")
             return redirect(url_for('login'))
     return render_template('register.html')
+
+# 显示日志接口
+
+
+@app.route('/logs')
+def show_logs():
+    with open('app.log', 'r') as log_file:
+        logs = log_file.read()
+    return logs
 
 
 if __name__ == '__main__':
