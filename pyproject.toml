@@ -1,0 +1,15 @@
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "test"
+version = "0.1.0"
+description = "Flask application"
+authors = [
+    { name="yaoaolong", email="yaoaolong@deepbi.com" }
+]
+dependencies = [
+    "Flask>=3.0.0",
+    "Flask-SQLAlchemy>=3.1.1"
+]
