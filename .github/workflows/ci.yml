@@ -3,10 +3,12 @@ name: Package Application
 on:
   push:
     branches:
-      - [main,test2_CICD]
+      - main
+      - test2_CICD
   pull_request:
     branches:
-      - [main,test2_CICD]
+      - main
+      - test2_CICD
 
 jobs:
   package:
