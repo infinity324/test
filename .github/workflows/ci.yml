@@ -26,14 +26,16 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
+          pip install build
 
-      - name: Package application
+      - name: Build wheel package
         run: |
+          python -m build --wheel
           mkdir -p dist
-          zip -r dist/application.zip . -x "*.git*" -x "*.github*" -x "*.idea*" -x "*.vscode*" -x "*.env*" -x "*.log*"
+          mv dist/*.whl dist/application.whl
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: application
-          path: dist/application.zip
+          path: dist/application.whl
