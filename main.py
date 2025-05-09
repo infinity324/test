@@ -75,11 +75,11 @@ def register():
 # 显示日志接口
 
 
-@app.route('/logs')
-def show_logs():
-    with open('app.log', 'r') as log_file:
-        logs = log_file.read()
-    return logs
+# @app.route('/logs')
+# def show_logs():
+#     with open('app.log', 'r') as log_file:
+#         logs = log_file.read()
+#     return logs
 
 
 if __name__ == '__main__':
